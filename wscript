@@ -101,7 +101,10 @@ def configure(ctx):
     # Setup CFLAGS
     if (len(ctx.stack_path) <= 1) and (len(ctx.env.CFLAGS) == 0):
         ctx.env.prepend_value('CFLAGS', ["-std=gnu99", "-g", "-Os", "-Wall", "-Wextra", "-Wshadow", "-Wcast-align",
-                                         "-Wwrite-strings", "-Wno-unused-parameter", "-Werror"])
+                                         "-Wwrite-strings", "-Wno-unused-parameter",
+                                         #  "-Werror"
+                                         "-mcpu=cortex-a9", "-mfpu=vfpv3", "-mfloat-abi=hard",
+                                         ])
 
     # Setup default include path and any extra defined
     ctx.env.append_unique('INCLUDES_CSP', ['include'] + ctx.options.includes.split(','))
