@@ -80,10 +80,16 @@ def configure(ctx):
     if ctx.options.with_loglevel not in valid_loglevel:
         ctx.fatal('--with-loglevel must be either: ' + str(valid_loglevel))
 
+    if os.name == 'nt':
+        executable_suffix = ".exe"
+    else:
+        executable_suffix = ""
+
     # Setup and validate toolchain
     if (len(ctx.stack_path) <= 1) and ctx.options.toolchain:
-        ctx.env.CC = ctx.options.toolchain + 'gcc'
-        ctx.env.AR = ctx.options.toolchain + 'ar'
+        ctx.env.CC = ctx.options.toolchain + 'gcc' + executable_suffix
+        ctx.env.AR = ctx.options.toolchain + 'ar' + executable_suffix
+
 
     ctx.load('compiler_c')
 
